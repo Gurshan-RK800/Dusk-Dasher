@@ -6,6 +6,7 @@ pygame.init()
 screen_height = 800
 screen_width = 1000
 
+player = pygame.Rect((300, 250, 50, 50))
 # Font
 font = pygame.font.SysFont("Jaro", 60, bold=True, italic=True)
 
@@ -60,10 +61,27 @@ def handle_game_events():
 # Game loop
 def game_loop():
     while True:
-        screen.fill((0, 0, 0))  # Clear the screen
-        # Your game logic here
-        handle_game_events()
+        screen.fill((0, 0, 0))
+        pygame.draw.rect(screen, (255, 0, 0), player)
+
+        # Event handling
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+        # Movement
+        key = pygame.key.get_pressed()
+        if key[pygame.K_a]:
+            player.move_ip(-1, 0)
+        elif key[pygame.K_d]:
+            player.move_ip(1, 0)
+        elif key[pygame.K_s]:
+            player.move_ip(0, 1)
+        elif key[pygame.K_w]:
+            player.move_ip(0, -1)
+
         pygame.display.update()
+
+
 
 # Main function to run the program
 def main():
