@@ -44,7 +44,6 @@ def handle_menu_events():
                     pygame.quit()
 
 
-
 # Main menu loop
 def main_menu():
     while True:
@@ -63,10 +62,6 @@ def handle_game_events():
 
 # Game loop
 def game_loop():
-
-    gravity = 0.005
-
-    player_vel_y = 0
 
     while True:
         screen.blit(game_background, (0, 0))
@@ -88,18 +83,8 @@ def game_loop():
             player.move_ip(0, 1)
         elif key[pygame.K_w]:
             player.move_ip(0, -1)
-
-        # Apply gravity
-        player_vel_y += gravity
-        player.y += player_vel_y
-
-        if player.bottom >= screen_height:
-            player.bottom = screen_height
-            player_vel_y = 0
-
+            
         pygame.display.update()
-
-
 
 
 # Main function to run the program
