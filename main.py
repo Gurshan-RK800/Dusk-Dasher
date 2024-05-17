@@ -15,12 +15,15 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 forest_background = pygame.image.load('./Images/redleaves.jpg')
 
+game_background = pygame.image.load('./Images/Improved Woods.jpg')
+
 # Function to display menu
 def display_menu():
     screen.blit(forest_background, (0, 0))
     write('Main Menu', font, (0, 0, 0), 400, 100)
     write('Start Game', font, (0, 0, 0), 400, 250)
     write('Quit', font, (0, 0, 0), 450, 360)
+
 
 # Function to write text on screen
 def write(text, font, text_col, x, y):
@@ -42,7 +45,6 @@ def handle_menu_events():
                     pygame.quit()
 
 
-
 # Main menu loop
 def main_menu():
     while True:
@@ -61,14 +63,17 @@ def handle_game_events():
 
 # Game loop
 def game_loop():
+
     while True:
-        screen.fill((0, 0, 0))
+        screen.blit(game_background, (0, 0))
         pygame.draw.rect(screen, (255, 0, 0), player)
+        pygame.display.update()
 
         # Event handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+
         # Movement
         key = pygame.key.get_pressed()
         if key[pygame.K_a]:
@@ -79,9 +84,8 @@ def game_loop():
             player.move_ip(0, 1)
         elif key[pygame.K_w]:
             player.move_ip(0, -1)
-
+            
         pygame.display.update()
-
 
 
 # Main function to run the program
