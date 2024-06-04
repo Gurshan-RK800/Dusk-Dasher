@@ -3,22 +3,25 @@ import sys
 
 pygame.init()
 
+# Set the display mode first
 screen_height = 720
 screen_width = 1280
-
-player_size = 50
-player = pygame.Rect(screen_width // 2, screen_height // 2, player_size, player_size)
-# Font
-font = pygame.font.SysFont("Jaro", 60, bold=True, italic=True)
-
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-bg_menu = pygame.image.load('./Images/dark.jpg')
 
+# Load images and fonts without using try or if not
+sprite_character = pygame.image.load('./images/Leon sprite.png').convert_alpha()
+bg_menu = pygame.image.load('./Images/dark.jpg')
 game_background = pygame.image.load('./Images/Improved Woods.jpg')
+
+# Initialize fonts
+font = pygame.font.SysFont("Jaro", 60, bold=True, italic=True)
+
 bg_width = game_background.get_width()
 bg_height = game_background.get_height()
 
+player_size = 50
+player = pygame.Rect(screen_width // 2, screen_height // 2, player_size, player_size)
 
 # Function to display menu
 def display_menu():
@@ -27,12 +30,10 @@ def display_menu():
     write('Start Game', font, (255, 255, 255), 550, 250)
     write('Quit', font, (255, 255, 255), 600, 360)
 
-
 # Function to write text on screen
 def write(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
     screen.blit(img, (x, y))
-
 
 # Function to handle menu events
 def handle_menu_events():
@@ -49,7 +50,6 @@ def handle_menu_events():
                     pygame.quit()
                     sys.exit()
 
-
 # Main menu loop
 def main_menu():
     while True:
@@ -60,14 +60,12 @@ def main_menu():
         if action == 'start_game':
             break
 
-
 # Function to handle game events
 def handle_game_events():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
 
 # Game loop
 def game_loop():
@@ -87,9 +85,8 @@ def game_loop():
             for j in range(-1, screen_height // bg_height + 2):
                 screen.blit(game_background, (i * bg_width - offset_x, j * bg_height - offset_y))
 
-        # Draw the player
-        screen.blit(game_background, (i * bg_width - offset_x, j * bg_height - offset_y))
-        pygame.draw.rect(screen, (255, 0, 0), player)
+        # Draw the player sprite
+        screen.blit(sprite_character, player.topleft)
 
         pygame.display.update()
 
@@ -121,11 +118,9 @@ def game_loop():
 
         pygame.display.update()
 
-
 # Main function to run the program
 def main():
     main_menu()  # Show the main menu
     game_loop()  # Start the game
-
 
 main()
